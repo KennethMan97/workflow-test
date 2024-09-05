@@ -1,6 +1,8 @@
 name: Reusable Signal Store Build And Test
 
 on:
+  push:
+    branches: "*"
   workflow_call:
 
 jobs:
