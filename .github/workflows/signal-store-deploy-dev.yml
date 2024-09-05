@@ -1,5 +1,8 @@
 name: Signal Store Deploy Dev
 
+env:
+  MYENVVAR: HELLO
+
 on:
   push:
     branches: ["dev"]
@@ -16,3 +19,6 @@ jobs:
 
       - name: Test Echo
         run: echo "Deploy Dev Workflow Running..."
+
+      - name: Test Echo Env
+        run: echo "Test...$MYENVVAR"
