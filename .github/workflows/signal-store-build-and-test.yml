@@ -1,0 +1,13 @@
+name: Reusable Signal Store Build And Test
+
+on:
+  workflow_call:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Test Echo
+      run: echo "Resuabled Workflow Running..."
