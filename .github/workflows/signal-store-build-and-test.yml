@@ -11,5 +11,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Try to fail
+        run: exit 1
+
       - name: Test Echo
         run: echo "Resuabled Workflow Running..."
