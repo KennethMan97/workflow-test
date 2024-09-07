@@ -19,13 +19,13 @@ jobs:
           poetry run black --check .
           poetry run isort **/*.py --check-only
   
-  title:
+  message-lint:
     runs-on: ubuntu-latest
     container: node:18-alpine
     steps:
       - uses: actions/checkout@v4
 
-      - name: Check Title Linting
+      - name: Check Commit Message Linting
         run: |
           npm install -g @commitlint/cli @commitlint/config-conventional
           echo "module.exports = {extends: ['@commitlint/config-conventional']}" > commitlint.config.js
