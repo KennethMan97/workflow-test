@@ -1,8 +1,22 @@
 name: Signal Store Deploy Dev
 
 env:
+  API_IMAGE_NAME_GITLAB: registry.gitlab.com/facultyai/defence/u108_build/u108_discovery_faculty_signal_store/signal-store-api:${{secrets.CI_COMMIT_SHA}}
+  CI_PROJECT_DIR: ${{secrets.CI_PROJECT_DIR}}
+  TF_ROOT: $CI_PROJECT_DIR/infrastructure
+  COGNITO_LAMBDA_DIR: src/cognito/lambda
+  OPENFGA_SRC_DIR: $CI_PROJECT_DIR/src/openfga
+  AWS_DEFAULT_REGION: eu-west-2
   TF_ENV: development
-  TESTURL: ${{secrets.TESTING_SECRET}}/projects/terraform/state/development
+  TF_ADDRESS: ${{secrets.CI_API_V4_URL}}/projects/${{secrets.CI_PROJECT_ID}}/terraform/state/development
+  AWS_ACCESS_KEY_ID: ${{secrets.DEV_AWS_ACCESS_KEY_ID}}
+  AWS_SECRET_ACCESS_KEY: ${{secrets.DEV_AWS_SECRET_ACCESS_KEY}}
+  TF_CLI_CONFIG_FILE: $TF_ROOT/.terraformrc
+  ACCOUNT_ID: 737599632837
+  TF_VAR_git_commit_hash: ${{secrets.CI_COMMIT_SHA}}
+  TF_VAR_opensearch_external_id: ${{secrets.TF_VAR_cross_account_external_id}}
+  SIGNALS_TABLE: dev-signal-store-signals
+  SCRIPTS_BUCKET_NAME: dev-signal-store-scripts
 
 on:
   push:
@@ -22,4 +36,4 @@ jobs:
         run: echo "Deploy Dev Workflow Running..."
 
       - name: Test Echo Env
-        run: echo "Test...$TESTURL"
+        run: echo "Test...$TF_ENV"
