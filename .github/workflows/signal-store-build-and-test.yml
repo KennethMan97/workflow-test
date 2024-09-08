@@ -9,6 +9,8 @@ jobs:
   authenticate-ghcr:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+
       - name: Login GHCR
         run: docker login --username kennethman97 --password ${{secrets.KENNETH_CLASSIC_PAT}} ghcr.io
 
@@ -26,3 +28,4 @@ jobs:
           poetry --version
           aws-cli --version
           git --version
+    needs: [authenticate-ghcr]
