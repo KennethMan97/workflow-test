@@ -8,8 +8,15 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    container: ghcr.io/kennethman97/poetry-ci-test-ghcr:latest
     steps:
       - uses: actions/checkout@v4
 
       - name: Test Echo
         run: echo "Reusable Workflow Running..."
+      
+      - name: Test Container
+        run: |
+          poetry --version
+          aws-cli --version
+          git --version
