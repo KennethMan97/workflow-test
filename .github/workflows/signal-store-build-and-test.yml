@@ -6,16 +6,21 @@ on:
   workflow_call:
 
 jobs:
+  authenticate-ghcr:
+    runs-on: ubuntu-latest
+    steps:
+      run: docker login --username kennethman97 --password ${{secrets.KENNETH_CLASSIC_PAT}} ghcr.io
+
   build-and-test:
     runs-on: ubuntu-latest
-    container: ghcr.io/kennethman97/poetry-ci-test-ghcr:latest
+    container: ghcr.io/kennethman97/poetry-ci-test-ghcr:latest # to remove; testing using ghcr image
     steps:
       - uses: actions/checkout@v4
 
       - name: Test Echo
         run: echo "Reusable Workflow Running..."
       
-      - name: Test Container
+      - name: Test GHCR Image
         run: |
           poetry --version
           aws-cli --version
