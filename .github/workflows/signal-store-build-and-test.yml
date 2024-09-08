@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Login GHCR
-        run: docker login --username kennethman97 --password ${{secrets.KENNETH_CLASSIC_PAT}} ghcr.io
+        run: docker login --username kennethman97 --password ${{secrets.CLASSIC_PAT}} ghcr.io
 
   build-and-test:
     runs-on: ubuntu-latest
