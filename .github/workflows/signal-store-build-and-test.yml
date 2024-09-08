@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Login GHCR
-      run: docker login --username kennethman97 --password ${{secrets.KENNETH_CLASSIC_PAT}} ghcr.io
+        run: docker login --username kennethman97 --password ${{secrets.KENNETH_CLASSIC_PAT}} ghcr.io
 
   build-and-test:
     runs-on: ubuntu-latest
