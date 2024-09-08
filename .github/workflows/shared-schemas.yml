@@ -1,0 +1,32 @@
+name: Shared Schemas
+
+on:
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  lint:
+    if: github.ref_type == 'tag' || !startsWith(github.event.head_commit.message, 'chore(release)')
+    runs-on: ubuntu-latest
+    container: registry.gitlab.com/facultyai/defence/u108_build/common-images/poetry-ci:latest # need to point to github container registry
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check File Linting
+        run: |
+          cd shared-schemas
+          poetry install
+          poetry run black --check .
+          poetry run isort **/*.py --check-only
+  
+  message-lint:
+    runs-on: ubuntu-latest
+    container: node:18-alpine
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check Commit Message Linting
+        run: |
+          npm install -g @commitlint/cli @commitlint/config-conventional
+          echo "module.exports = {extends: ['@commitlint/config-conventional']}" > commitlint.config.js
+          echo ${{ github.event.pull_request.title }} | commitlint  
